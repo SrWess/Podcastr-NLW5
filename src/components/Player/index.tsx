@@ -65,14 +65,10 @@ export default function Player() {
 
   return (
     <div className={styles.playerContainer}>
-      {episode ? (
-        <header>
-          <img src="/playing.svg" alt="Tocando agora" />
-          <strong>Tocando agora</strong>
-        </header>
-      ) : (
-        ""
-      )}
+      <header>
+        <img src="/playing.svg" alt="Tocando agora" />
+        <strong>Tocando agora</strong>
+      </header>
 
       {episode ? (
         <div className={styles.currentEpisode}>
