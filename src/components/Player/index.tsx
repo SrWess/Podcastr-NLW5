@@ -73,8 +73,8 @@ export default function Player() {
       {episode ? (
         <div className={styles.currentEpisode}>
           <Image
-            width={592}
-            height={592}
+            width={492}
+            height={492}
             src={episode.thumbnail}
             objectFit="cover"
           />
