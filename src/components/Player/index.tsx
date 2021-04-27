@@ -9,7 +9,7 @@ import convertDurationToTimeString from "../../utils/convertDurationToTimeString
 
 export default function Player() {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
 
   const {
     episodesList,
@@ -25,7 +25,7 @@ export default function Player() {
     playPrevious,
     hasNext,
     hasPrevious,
-    clearPlayerState
+    clearPlayerState,
   } = usePlayer();
 
   useEffect(() => {
@@ -41,23 +41,23 @@ export default function Player() {
   }, [isPlaying]);
 
   function setupProgressListener() {
-    audioRef.current.currentTime = 0
+    audioRef.current.currentTime = 0;
 
-    audioRef.current.addEventListener('timeupdate', () => {
-      setProgress(Math.floor(audioRef.current.currentTime))
-    })
+    audioRef.current.addEventListener("timeupdate", () => {
+      setProgress(Math.floor(audioRef.current.currentTime));
+    });
   }
 
   function handleSeek(amount: number) {
-    audioRef.current.currentTime = amount
-    setProgress(amount)
+    audioRef.current.currentTime = amount;
+    setProgress(amount);
   }
 
   function handleEpisodesEnded() {
     if (hasNext) {
-      playNext()
+      playNext();
     } else {
-      clearPlayerState()
+      clearPlayerState();
     }
   }
 
@@ -65,10 +65,14 @@ export default function Player() {
 
   return (
     <div className={styles.playerContainer}>
-      <header>
-        <img src="/playing.svg" alt="Tocando agora" />
-        <strong>Tocando agora</strong>
-      </header>
+      {episode ? (
+        <header>
+          <img src="/playing.svg" alt="Tocando agora" />
+          <strong>Tocando agora</strong>
+        </header>
+      ) : (
+        ""
+      )}
 
       {episode ? (
         <div className={styles.currentEpisode}>
@@ -89,7 +93,7 @@ export default function Player() {
 
       <footer className={!episode ? styles.empty : ""}>
         <div className={styles.progress}>
-        <span>{ convertDurationToTimeString(progress) }</span>
+          <span>{convertDurationToTimeString(progress)}</span>
           <div className={styles.slider}>
             {episode ? (
               <Slider
@@ -104,7 +108,7 @@ export default function Player() {
               <div className={styles.emptySlider} />
             )}
           </div>
-          <span>{ convertDurationToTimeString(episode?.duration ?? 0) }</span>
+          <span>{convertDurationToTimeString(episode?.duration ?? 0)}</span>
         </div>
 
         {episode && (
@@ -121,11 +125,11 @@ export default function Player() {
         )}
 
         <div className={styles.buttons}>
-          <button 
-            type="button" 
+          <button
+            type="button"
             disabled={!episode || episodesList.length === 1}
             onClick={toggleShuffle}
-            className={isShuffling ? styles.isActive : ''}
+            className={isShuffling ? styles.isActive : ""}
           >
             <img src="/shuffle.svg" alt="Embaralhar" />
           </button>
@@ -155,12 +159,12 @@ export default function Player() {
           >
             <img src="/play-next.svg" alt="Tocar próxima" />
           </button>
-          <button 
-            type="button" 
-            disabled={!episode} 
+          <button
+            type="button"
+            disabled={!episode}
             onClick={toggleLoop}
-            className={isLooping ? styles.isActive : ''}
-            >
+            className={isLooping ? styles.isActive : ""}
+          >
             <img src="/repeat.svg" alt="Repetir" />
           </button>
         </div>
